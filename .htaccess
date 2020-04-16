@@ -1,0 +1,106 @@
+# pravidla vych·zÌ z https://u.lynt.cz/htaccess
+
+# Security headers
+<IfModule mod_headers.c>
+  Header set X-XSS-Protection "1; mode=block"
+  Header set X-Frame-Options SAMEORIGIN
+  Header set X-Content-Type-Options nosniff
+  Header set Strict-Transport-Security "max-age=15768000;" env=HTTPS
+</IfModule>
+
+
+# Expires Headers - static files
+<IfModule mod_expires.c>
+<FilesMatch "\.(?i:gif|jpe?g|png|js|css|swf|ico|woff|svg)$">
+    ExpiresActive on
+    ExpiresDefault "access plus 365 days"
+</Filesmatch>
+</IfModule>
+
+
+# Cache control - static files
+<IfModule mod_headers.c>
+<FilesMatch "\.(?i:gif|jpe?g|png|js|css|swf|ico|woff|svg)$">
+    Header set Cache-Control "max-age=31536000, public"
+</FilesMatch>
+</IfModule>
+
+
+# Gzip
+<IfModule mod_deflate.c>
+ AddOutputFilterByType DEFLATE text/css application/x-javascript text/x-component text/html text/richtext image/svg+xml text/plain text/xsd text/xsl text/xml image/x-icon application/javascript
+</IfModule>
+
+
+# Blokace xmlrpc.php - lze odkomentovat, pokud nepouûÌv·te mobilnÌ WP aplikace nebo speci·lnÌ pluginy
+#<FilesMatch "^(xmlrpc\.php)">
+#    order deny,allow
+#   deny from all
+#    #JetPack + other Automattic networks
+#    allow from 76.74.254.0/25
+#    allow from 216.151.209.64/26
+#    allow from 66.135.48.128/25
+#    allow from 69.174.248.128/25
+#    allow from 76.74.255.0/25
+#    allow from 216.151.210.0/25
+#    allow from 76.74.248.128/25
+#    allow from 207.198.112.0/23
+#    allow from 207.198.101.0/25
+#    allow from 198.181.116.0/24
+#    allow from 192.0.64.0/18
+#    allow from 66.155.38.0/24
+#    allow from 209.15.21.0/24
+#    allow from 64.34.206.0/24
+#</FilesMatch>
+
+
+# Blokace p¯Ìstupu k login str·nce jen z vybran˝ch IP
+#<Files wp-login.php>
+#    order deny,allow
+#    allow from x.x.x.x
+#    deny from all
+#</Files>
+
+
+# Blokace p¯ÌmÈho p¯Ìstupu k php soubor˘m v uploads sloûce
+RewriteRule ^(.*)/uploads/(.*)\.php$ - [F]
+
+
+# Blokace zjiöùov·nÌ uûivatelsk˝ch jmen
+#RewriteCond %{QUERY_STRING} author= 
+#RewriteRule ^(.*)$ - [R=403,NC,L]
+
+
+# Blokace POST poûadvk˘ be refererru (boti)
+RewriteCond %{REQUEST_METHOD} POST
+RewriteCond %{HTTP_REFERER} ^$
+RewriteRule ^ - [F,L]
+
+
+# P¯esmÏrov·nÌ na www/bez www a https - hlavnÌ domÈna bez www
+#RewriteCond %{HTTPS} !on
+#RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+#RewriteCond %{HTTP_HOST} ^(?:www\.)?(.*)$ [NC]
+#RewriteRule ^(.*)$ https://%1%{REQUEST_URI} [L,QSA,NE,R=301]
+#RewriteCond %{HTTP_HOST} ^(?:www\.)(.*)$ [NC]
+#RewriteRule ^(.*)$ https://%1%{REQUEST_URI} [L,QSA,NE,R=301]
+
+# P¯esmÏrov·nÌ na www/bez www a https - hlavnÌ domÈna s www
+#RewriteCond %{HTTPS} !on
+#RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+#RewriteCond %{HTTP_HOST} ^(?:www\.)?(.*)$ [NC]
+#RewriteRule ^(.*)$ https://www.%1%{REQUEST_URI} [L,QSA,NE,R=301]
+#RewriteCond %{HTTP_HOST} ^(?!www\.)(.*)$ [NC]
+#RewriteRule ^(.*)$ https://www.%1%{REQUEST_URI} [L,QSA,NE,R=301]
+
+
+# BEGIN WordPress
+
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+
+# END WordPress
