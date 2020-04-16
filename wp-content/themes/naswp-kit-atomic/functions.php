@@ -72,6 +72,7 @@ $mimes_array = array('svg' => 'image/svg+xml');
 
 $helpers->mimes($mimes_array);
 
+$helpers->lightbox();
 
 $colors = array(
 	'Light' => '#EAF7FF',

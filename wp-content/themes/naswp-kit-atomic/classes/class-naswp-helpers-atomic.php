@@ -73,6 +73,13 @@ if (!class_exists('NasWP_Helpers')) {
 			$blocks_helper->init();
 		}
 
+		public function lightbox()
+		{
+			require_once "class-naswp-lightbox.php";
+			$lightbox = new NasWP_Lightbox();
+			$lightbox->init();
+		}
+
 	}
 }
 
