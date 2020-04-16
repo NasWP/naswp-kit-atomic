@@ -1,4 +1,4 @@
-# pravidla vych·zÌ z https://u.lynt.cz/htaccess
+# pravidla vych√°z√≠ z https://u.lynt.cz/htaccess
 
 # Security headers
 <IfModule mod_headers.c>
@@ -32,7 +32,7 @@
 </IfModule>
 
 
-# Blokace xmlrpc.php - lze odkomentovat, pokud nepouûÌv·te mobilnÌ WP aplikace nebo speci·lnÌ pluginy
+# Blokace xmlrpc.php - lze odkomentovat, pokud nepou≈æ√≠v√°te mobiln√≠ WP aplikace nebo speci√°ln√≠ pluginy
 #<FilesMatch "^(xmlrpc\.php)">
 #    order deny,allow
 #   deny from all
@@ -54,7 +54,7 @@
 #</FilesMatch>
 
 
-# Blokace p¯Ìstupu k login str·nce jen z vybran˝ch IP
+# Blokace p≈ô√≠stupu k login str√°nce jen z vybran√Ωch IP
 #<Files wp-login.php>
 #    order deny,allow
 #    allow from x.x.x.x
@@ -62,22 +62,22 @@
 #</Files>
 
 
-# Blokace p¯ÌmÈho p¯Ìstupu k php soubor˘m v uploads sloûce
+# Blokace p≈ô√≠m√©ho p≈ô√≠stupu k php soubor≈Øm v uploads slo≈æce
 RewriteRule ^(.*)/uploads/(.*)\.php$ - [F]
 
 
-# Blokace zjiöùov·nÌ uûivatelsk˝ch jmen
+# Blokace zji≈°≈•ov√°n√≠ u≈æivatelsk√Ωch jmen
 #RewriteCond %{QUERY_STRING} author= 
 #RewriteRule ^(.*)$ - [R=403,NC,L]
 
 
-# Blokace POST poûadvk˘ be refererru (boti)
+# Blokace POST po≈æadvk≈Ø be refererru (boti)
 RewriteCond %{REQUEST_METHOD} POST
 RewriteCond %{HTTP_REFERER} ^$
 RewriteRule ^ - [F,L]
 
 
-# P¯esmÏrov·nÌ na www/bez www a https - hlavnÌ domÈna bez www
+# P≈ôesmƒõrov√°n√≠ na www/bez www a https - hlavn√≠ dom√©na bez www
 #RewriteCond %{HTTPS} !on
 #RewriteCond %{HTTP:X-Forwarded-Proto} !=https
 #RewriteCond %{HTTP_HOST} ^(?:www\.)?(.*)$ [NC]
@@ -85,7 +85,7 @@ RewriteRule ^ - [F,L]
 #RewriteCond %{HTTP_HOST} ^(?:www\.)(.*)$ [NC]
 #RewriteRule ^(.*)$ https://%1%{REQUEST_URI} [L,QSA,NE,R=301]
 
-# P¯esmÏrov·nÌ na www/bez www a https - hlavnÌ domÈna s www
+# P≈ôesmƒõrov√°n√≠ na www/bez www a https - hlavn√≠ dom√©na s www
 #RewriteCond %{HTTPS} !on
 #RewriteCond %{HTTP:X-Forwarded-Proto} !=https
 #RewriteCond %{HTTP_HOST} ^(?:www\.)?(.*)$ [NC]
@@ -93,6 +93,9 @@ RewriteRule ^ - [F,L]
 #RewriteCond %{HTTP_HOST} ^(?!www\.)(.*)$ [NC]
 #RewriteRule ^(.*)$ https://www.%1%{REQUEST_URI} [L,QSA,NE,R=301]
 
+
+
+# Lze d√°le aplikovat bezpeƒçnostn√≠ prvidla z 7G Firewallu https://perishablepress.com/7g-firewall/
 
 # BEGIN WordPress
 
