@@ -16,10 +16,8 @@ if (!class_exists('NasWP_Localization')) {
 
 	class NasWP_Localization
 	{
-		/**
-		 * Class construct method. Adds actions to their respective WordPress hooks.
-		 */
-		public function __construct()
+
+		public function init()
 		{
 			add_action('locale', array($this,'set_locale'));
 			add_action('widgets_init',  array($this,'register_sidebars'));
@@ -107,18 +105,4 @@ if (!class_exists('NasWP_Localization')) {
 
 
 	}
-}
-
-//obecná funkce pro zjištění jazyka z url pro použití i v jiných částech wp
-
-function naswp_is_lang($lang)
-{
-
-	$path_parts = explode('/', $_SERVER['REQUEST_URI']);
-
-	if (isset($path_parts[1]) && $path_parts[1] === $lang) {
-		return true;
-	}
-
-	return false;
 }

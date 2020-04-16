@@ -43,6 +43,9 @@ function naswp_remove_jquery_migrate($scripts)
 add_action('wp_enqueue_scripts', 'naswp_kit_atomic_script_css_loader', 20);
 add_action('wp_default_scripts', 'naswp_remove_jquery_migrate');
 
+//načtení pomocných funkcí
+require_once "inc/naswp-utils.php";
+
 //načtení helperů z kitu
 require_once "classes/class-naswp-helpers.php";
 

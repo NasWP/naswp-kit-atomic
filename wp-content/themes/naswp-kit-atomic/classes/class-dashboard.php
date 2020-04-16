@@ -12,15 +12,11 @@
 if (!class_exists('NasWP_Dashboard')) {
 	class NasWP_Dashboard
 	{
-		/**
-		 * Class construct method. Adds actions to their respective WordPress hooks.
-		 */
-		public function __construct()
+
+		public function init()
 		{
 			add_action('wp_dashboard_setup', array($this, 'dashboard_widgets'));
-
 		}
-
 
 		public function dashboard_widgets()
 		{

@@ -12,10 +12,8 @@ if (!class_exists('NasWP_Sitemap')) {
 
 	class NasWP_Sitemap
 	{
-		/**
-		 * Class construct method. Adds actions to their respective WordPress hooks.
-		 */
-		public function __construct()
+
+		public function init()
 		{
 
 			add_action("publish_post", array($this, "sitemap"));
@@ -23,7 +21,6 @@ if (!class_exists('NasWP_Sitemap')) {
 			add_filter('robots_txt', array($this, 'robotstxt'), 20, 2);
 
 		}
-
 
 		public function sitemap()
 		{

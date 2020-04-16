@@ -8,6 +8,7 @@
 if (!class_exists('NasWP_Helpers')) {
 	class NasWP_Helpers
 	{
+        //TODO udělat registr inicializovaných tříd pro přístup ke stavu a dalším funkcím
 
 		public function colors($colors, $allow_custom_colors = true, $gradients = null, $allow_custom_gradients = true)
 		{
@@ -18,51 +19,59 @@ if (!class_exists('NasWP_Helpers')) {
 		public function seo()
 		{
 			require_once "class-seo.php";
-			new NasWP_SEO();
+			$seo = new NasWP_SEO();
+			$seo->init();
 		}
 
 		public function sitemap()
 		{
 			require_once "class-sitemap.php";
-			new NasWP_Sitemap();
+			$sitemap = new NasWP_Sitemap();
+			$sitemap->init();
+
 		}
 
 		public function ga($id)
 		{
 			require_once "class-ga.php";
-			new NasWP_GA($id);
+			$ga = new NasWP_GA($id);
+			$ga->init();
 		}
 
 		public function gtm($id)
 		{
 			require_once "class-gtm.php";
-			new NasWP_GTM($id);
+			$gtm = new NasWP_GTM($id);
+			$gtm->init();
 		}
 
 		public function mimes($formats_array)
 		{
 			require_once "class-mimes.php";
-			new NasWP_Mimes($formats_array);
+			$mimes = new NasWP_Mimes($formats_array);
+			$mimes->init();
 		}
 
 		public function localization()
 		{
 			require_once "class-localization.php";
-			new NasWP_Localization();
+			$localization = new NasWP_Localization();
+			$localization->init();
 		}
 
 		public function intro()
 		{
-			require_once "class-dashboard.php.php";
-			new NasWP_Dashboard();
+			require_once "class-dashboard.php";
+			$dashboard = new NasWP_Dashboard();
+			$dashboard->init();
 		}
 
 		public function blocks_helper()
 		{
 			require_once "class-blocks-helper.php";
-			new NasWP_Blocks_Helper();
+			$blocks_helper = new NasWP_Blocks_Helper();
+			$blocks_helper->init();
 		}
-
 
 	}
 }

@@ -28,10 +28,7 @@ if (!class_exists('NasWP_SEO')) {
 			),
 		);
 
-		/**
-		 * Class construct method. Adds actions to their respective WordPress hooks.
-		 */
-		public function __construct()
+		public function init()
 		{
 			add_action('add_meta_boxes', array($this, 'add_meta_boxes'));
 			add_action('save_post', array($this, 'save_post'));

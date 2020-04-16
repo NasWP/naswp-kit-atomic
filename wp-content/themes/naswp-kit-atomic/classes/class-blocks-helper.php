@@ -9,10 +9,8 @@ if (!class_exists('NasWP_Blocks_Helper')) {
 
 	class NasWP_Blocks_Helper
 	{
-		/**
-		 * Class construct method. Adds actions to their respective WordPress hooks.
-		 */
-		public function __construct()
+
+		public function init()
 		{
 			add_action('enqueue_block_editor_assets', array($this, 'load_css'));
 		}

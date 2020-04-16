@@ -10,15 +10,16 @@ if (!class_exists('NasWP_GTM')) {
 	{
 		public $id;
 
-		/**
-		 * Class construct method. Adds actions to their respective WordPress hooks.
-		 */
+
 		public function __construct($id)
 		{
 			$this->id = $id;
+		}
+
+		public function init()
+		{
 			add_action('wp_head', array($this, 'gtm_code_head'));
 			add_action('wp_body_open', array($this, 'gtm_code_body'));
-
 		}
 
 		public function gtm_code_head()

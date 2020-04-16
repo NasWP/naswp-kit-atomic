@@ -17,6 +17,11 @@ if (!class_exists('NasWP_Mimes')) {
 		public function __construct($mimes_array)
 		{
 			$this->mimes = $mimes_array;
+		}
+
+
+		public function init()
+		{
 			add_filter('upload_mimes', array($this, 'mime_types'));
 		}
 

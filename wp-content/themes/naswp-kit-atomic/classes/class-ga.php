@@ -11,14 +11,14 @@ if (!class_exists('NasWP_GA')) {
 	{
 		public $id;
 
-		/**
-		 * Class construct method. Adds actions to their respective WordPress hooks.
-		 */
 		public function __construct($id)
 		{
 			$this->id = $id;
-			add_action('wp_head', array($this, 'ga_code'));
+		}
 
+		public function init()
+		{
+			add_action('wp_head', array($this, 'ga_code'));
 		}
 
 		public function ga_code()
@@ -26,7 +26,14 @@ if (!class_exists('NasWP_GA')) {
 			?>
 			<!-- Global site tag (gtag.js) - Google Analytics -->
 			<script async src="https://www.googletagmanager.com/gtag/js?id=<?php echo $this->id; ?>"></script>
-			<script>window.dataLayer = window.dataLayer || [];function gtag() {dataLayer.push(arguments);}gtag('js', new Date());gtag('config', '<?php echo $this->id;?>');</script>
+			<script>window.dataLayer = window.dataLayer || [];
+
+				function gtag() {
+					dataLayer.push(arguments);
+				}
+
+				gtag('js', new Date());
+				gtag('config', '<?php echo $this->id;?>');</script>
 		<?php }
 
 	}
