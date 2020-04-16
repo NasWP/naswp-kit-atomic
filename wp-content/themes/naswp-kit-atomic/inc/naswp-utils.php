@@ -1,6 +1,10 @@
 <?php
-
 //obecná funkce pro zjištění jazyka z url pro použití i v jiných částech wp
+
+// If this file is called directly, abort.
+if (! defined("WPINC")) {
+  die;
+   } 
 
 function naswp_is_lang($lang)
 {

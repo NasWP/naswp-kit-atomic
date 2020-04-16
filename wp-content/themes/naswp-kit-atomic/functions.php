@@ -47,7 +47,7 @@ add_action('wp_default_scripts', 'naswp_remove_jquery_migrate');
 require_once "inc/naswp-utils.php";
 
 //načtení helperů z kitu
-require_once "classes/class-naswp-helpers.php";
+require_once "classes/class-naswp-helpers-atomic.php";
 
 $helpers = new NasWP_Helpers;
 
