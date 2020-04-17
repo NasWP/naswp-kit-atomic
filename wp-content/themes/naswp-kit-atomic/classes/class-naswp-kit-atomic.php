@@ -41,6 +41,10 @@ if (!class_exists('NasWP_Kit_Atomic')) {
 			wp_dequeue_style('font-awesome');
 			wp_deregister_style('font-awesome');
 
+			//odstranění common.css z rodičovské šablony - styl máme sloučený s naším style.css pro ušetření požadavku
+			wp_dequeue_style('atomic-blocks-shared-styles');
+			wp_deregister_style('atomic-blocks-shared-styles');
+
 			/* zdá se, že se načítá natvrdo ve skriptech šablony */
 			//wp_dequeue_script( 'fitvids' );
 		}
