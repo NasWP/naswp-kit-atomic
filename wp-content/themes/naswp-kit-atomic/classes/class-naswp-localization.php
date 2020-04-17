@@ -96,7 +96,7 @@ if (!class_exists('NasWP_Localization')) {
 
 			$new_id = 3;
 
-			if (lnaswp_is_lang('en') && $args['theme_location'] === 'primary') {
+			if (naswp_is_lang('en') && $args['theme_location'] === 'primary') {
 				$args['menu'] = $new_id;
 			}
 
