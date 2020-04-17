@@ -20,10 +20,15 @@ if (!class_exists('NasWP_Kit_Atomic')) {
 
 		public function script_css_loader()
 		{
+
+			//odstranění stylu šablony - načteme později ve správném pořadí
+			wp_dequeue_style( 'atomic-blocks-style' );
+			wp_deregister_style( 'atomic-blocks-style' );
+
 			//načtení stylů z rodičovksé šablony
 			wp_enqueue_style('parent-style', get_template_directory_uri() . '/style.css');
 			//načtení vlastních stylů ve správném pořadí
-			wp_enqueue_style('child-style', get_stylesheet_directory_uri() . '/style.css', array('parent-style'), wp_get_theme()->get('Version'));
+			wp_enqueue_style('naswp-kit-atomic', get_stylesheet_directory_uri() . '/style.css', array('parent-style'), wp_get_theme()->get('Version'));
 
 			//načtení vlastní osekané verze FontAwesome
 			wp_enqueue_style('font-awesome-mini', get_stylesheet_directory_uri() . '/assets/css/fa-mini.css');
