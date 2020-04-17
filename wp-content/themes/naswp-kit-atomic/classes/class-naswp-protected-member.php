@@ -1,6 +1,8 @@
 <?php
 /**
- * Pomocník pro vložení kódu Google Analytics
+ * Jednoduchá member sekce
+ * Přepisuje funkcionalitu příspěvků chráněných heslem - místo zadání hesla vyžaduje přihlášení uživatele.
+ * Pro použití stačí nastavit příspěvky jako chráněné a nastavit jim libovolné heslo.
  *
  * @author Vladimír Smitka, Lynt.cz
  *
@@ -16,7 +18,7 @@ if (!class_exists('NasWP_Protected_Member')) {
 			add_action('template_redirect', array($this, 'auth_redir'));
 			add_filter('post_password_required', array($this, 'login_access'), 10, 2);
 			add_filter('protected_title_format', array($this, 'title_format'), 10, 2);
-			add_action('admin_head',  array($this, 'highlight_protected'));
+			add_action('admin_head', array($this, 'highlight_protected'));
 		}
 
 
@@ -37,7 +39,8 @@ if (!class_exists('NasWP_Protected_Member')) {
 		}
 
 
-		public function title_format ($format, $post){
+		public function title_format($format, $post)
+		{
 			if (is_user_logged_in()) {
 				$format = '%s';
 			}
@@ -47,7 +50,7 @@ if (!class_exists('NasWP_Protected_Member')) {
 
 		function highlight_protected()
 		{
-		    echo '<style type="text/css">.striped>tbody>:nth-child(odd).post-password-protected{background-color:#ffeaea}.striped>tbody>:nth-child(even).post-password-protected{background-color:#fff1f1};</style>';
+			echo '<style type="text/css">.striped>tbody>:nth-child(odd).post-password-protected{background-color:#ffeaea}.striped>tbody>:nth-child(even).post-password-protected{background-color:#fff1f1}</style>';
 		}
 
 	}

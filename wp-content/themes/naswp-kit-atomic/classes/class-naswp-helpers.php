@@ -1,6 +1,6 @@
 <?php
 /**
- * Hlavní třída pro načítání pomocníků - mapování tříd na funkce
+ * Hlavní třída pro nastvení šablony a načítání pomocníků - mapování tříd na funkce
  *
  * @author Vladimír Smitka, Lynt.cz
  *
@@ -8,7 +8,9 @@
 if (!class_exists('NasWP_Helpers')) {
 	class NasWP_Helpers
 	{
-        //TODO udělat registr inicializovaných tříd pro přístup ke stavu a dalším funkcím
+		//TODO udělat registr inicializovaných tříd pro přístup ke stavu a dalším funkcím
+
+		/* Jednotlivé helpery */
 
 		public function colors($colors, $allow_custom_colors = true, $gradients = null, $allow_custom_gradients = true)
 		{
@@ -59,7 +61,7 @@ if (!class_exists('NasWP_Helpers')) {
 			$localization->init();
 		}
 
-		public function intro()
+		public function dashboard_tips()
 		{
 			require_once "class-naswp-dashboard.php";
 			$dashboard = new NasWP_Dashboard();

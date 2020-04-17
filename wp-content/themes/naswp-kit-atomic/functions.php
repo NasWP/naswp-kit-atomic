@@ -1,60 +1,19 @@
 <?php
-function naswp_kit_atomic_script_css_loader()
-{
-	//load parent styles
-	wp_enqueue_style('parent-style', get_template_directory_uri() . '/style.css');
 
-	//Load stripped down Font Awesome
-	wp_enqueue_style('font-awesome-mini', get_stylesheet_directory_uri() . '/assets/css/fa-mini.css');
+require_once "classes/class-naswp-kit-atomic.php";
 
-	//Unload Font Awesome from atomic blocks plugin
-	wp_dequeue_style('atomic-blocks-fontawesome');
-	wp_deregister_style('atomic-blocks-fontawesome');
+$kit = new NasWP_Kit_Atomic();
 
-	//unload Font Awesome from atomic blocks theme
-	wp_dequeue_style('font-awesome');
-	wp_deregister_style('font-awesome');
-
-	//TODO: zdá se, že se načítá natvrdo ve skriptech šablony
-	//wp_dequeue_script( 'fitvids' );
-}
-
-//replace webfonts
-function atomic_blocks_fonts_url()
-{
-	return 'https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,700&display=swap&subset=latin-ext';
-}
-
-//remove jQuery migrate
-function naswp_remove_jquery_migrate($scripts)
-{
-	if (!is_admin() && isset($scripts->registered['jquery'])) {
-		$script = $scripts->registered['jquery'];
-
-		if ($script->deps) { // Check whether the script has any dependencies
-			$script->deps = array_diff($script->deps, array(
-				'jquery-migrate'
-			));
-		}
-	}
-}
-
-//load scipts, css + clenup
-add_action('wp_enqueue_scripts', 'naswp_kit_atomic_script_css_loader', 20);
-add_action('wp_default_scripts', 'naswp_remove_jquery_migrate');
-
-//načtení pomocných funkcí
+require_once "inc/naswp-atomic-custom.php";
 require_once "inc/naswp-utils.php";
 
-//načtení helperů z kitu
-require_once "classes/class-naswp-helpers-atomic.php";
+require_once "classes/class-naswp-helpers.php";
 
 $helpers = new NasWP_Helpers;
 
 /* Příklady použití helperů */
 /*
-
-$helpers->intro();
+$helpers->dashboard_tips();
 
 $helpers->blocks_helper();
 
@@ -72,8 +31,6 @@ $mimes_array = array('svg' => 'image/svg+xml');
 
 $helpers->mimes($mimes_array);
 
-$helpers->lightbox();
-
 $colors = array(
 	'Light' => '#EAF7FF',
 	'Blue Light' => '#96D8FF',
@@ -89,4 +46,5 @@ $gradients = array(
 
 $helpers->colors($colors, true, $gradients, true);
 
+$helpers->protected_member();
 */
