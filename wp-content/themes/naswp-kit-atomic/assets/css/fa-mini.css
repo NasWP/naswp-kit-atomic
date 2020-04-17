@@ -2,6 +2,11 @@
  * Font Awesome Free 5.0.12 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  */
+ 
+/*
+ * Mini verze: fontawesomeSubset(['search','times', 'bars', 'angle-left','angle-right','angle-down','angle-up','caret-right','caret-left','comment-alt','arrow-circle-left','arrow-circle-right','user','exclamation-circle','envelope-o'], '.'); 
+ */
+ 
 .fa,
 .fas,
 .far,
@@ -191,7 +196,9 @@
   
 .fa-times:before {
   content: "\f00d"; }      
-  
+
+.fa-bars:before {
+  content: "\f0c9"; }  
   
   
 /* Fonts */
