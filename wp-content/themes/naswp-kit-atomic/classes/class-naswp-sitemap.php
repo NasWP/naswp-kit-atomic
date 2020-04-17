@@ -5,9 +5,9 @@
  * generuje statický sitemap.xml při publikaci článku/stránky
  * přidá odkaz na sitemapu do virtuálního robots.txt
  *
- *  @author Vladimír Smitka, Lynt.cz
+ * @author Vladimír Smitka, Lynt.cz
  *
-*/
+ */
 if (!class_exists('NasWP_Sitemap')) {
 
 	class NasWP_Sitemap
@@ -28,6 +28,7 @@ if (!class_exists('NasWP_Sitemap')) {
 				'numberposts' => -1,
 				'orderby' => 'modified',
 				'post_type' => array('post', 'page'),
+				'has_password' => FALSE,
 				'order' => 'DESC'
 			));
 

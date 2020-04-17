@@ -80,6 +80,14 @@ if (!class_exists('NasWP_Helpers')) {
 			$lightbox->init();
 		}
 
+		public function protected_member()
+		{
+			require_once "class-naswp-protected-member.php";
+			$protected_member = new NasWP_Protected_Member();
+			$protected_member->init();
+		}
+
+
 	}
 }
 
