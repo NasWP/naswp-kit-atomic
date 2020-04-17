@@ -16,7 +16,8 @@ Aktuálně kit umí rozšířit funkcionalitu následovně:
 -   vygenerovat sitemapu
 -   udělat anglickou mutaci webu (beta)
 -   zapnout si ohraničení sloupců a skupin v gutenbergu pro lepší orientaci
--  doplnit obrázky a galerie WP o jednoduchý LightBox
+-   doplnit obrázky a galerie WP o jednoduchý LightBox
+-   vytvořit jednoduchou členskou sekce náhradou funkce heslem chráněných příspěvků za nutnost přihlášení
 
 Jednotlivé helpery se povolují a případně nastavují ve functions.php zavoláním příslušných funkcí:
 
@@ -61,6 +62,9 @@ Jednotlivé helpery se povolují a případně nastavují ve functions.php zavol
     );
     
     $helpers->colors($colors, true, $gradients, true);
+    
+    //zapnutí jednoduché členské sekce - nahradí funkci příspěvků chráněných heslem
+    $helpers->protected_member();
 
 
 Pokud nějakou funkci nechete využívat, nebo ji nahradit jiným komplexnějším pluginem, stačí zakomentovat/odstranit volání příslušného Helperu.
