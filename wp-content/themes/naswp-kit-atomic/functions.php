@@ -46,5 +46,7 @@ $gradients = array(
 
 $helpers->colors($colors, true, $gradients, true);
 
+$helpers->lightbox();
+
 $helpers->protected_member();
 */
