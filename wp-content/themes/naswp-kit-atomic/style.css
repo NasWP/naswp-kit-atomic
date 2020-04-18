@@ -1,7 +1,7 @@
-/* 
+/*
 Theme Name:		 NášWP Kit Atomic
-Theme URI:		 https://naswp.cz
-Description:	 NášWP Kit Atomic
+Theme URI:		 https://github.com/NasWP/naswp-kit-atomic
+Description:	 Startovací WordPress Kit od NášWP
 Author:			 NášWP
 Author URI:		 https://naswp.cz
 Template:		 atomic-blocks
@@ -19,26 +19,61 @@ Styles for the block editor and front end
 */
 p + .alignfull,
 p + .alignwide {
-  margin-top: 2em;
+	margin-top: 2em;
 }
 
 .wp-block-columns {
-  justify-content: space-between;
+	justify-content: space-between;
 }
+
 @media only screen and (max-width: 600px) {
-  .wp-block-columns {
-    display: block;
-  }
+	.wp-block-columns {
+		display: block;
+	}
 }
 
 .wp-block-column {
-  width: 48%;
-  flex: 0 1 auto;
+	width: 48%;
+	flex: 0 1 auto;
 }
+
 @media only screen and (max-width: 600px) {
-  .wp-block-column {
-    width: 100%;
-  }
+	.wp-block-column {
+		width: 100%;
+	}
+}
+
+
+/*
+	Styly pro zobrazení sidebaru
+ */
+
+#primary.has-sidebar {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	/* pro sidebar vlevo: */
+	/*flex-direction: row-reverse;*/
+}
+
+#primary.has-sidebar main {
+	width: 70%;
+}
+
+#primary.has-sidebar #sidebar {
+	width: 25%;
+}
+
+
+@media (max-width: 600px) {
+	#primary.has-sidebar main {
+		width: 100%;
+	}
+
+	#primary.has-sidebar #sidebar {
+		width: 100%;
+	}
 }
 
 /*

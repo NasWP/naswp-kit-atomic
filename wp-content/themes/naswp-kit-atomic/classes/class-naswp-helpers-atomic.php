@@ -133,7 +133,12 @@ if (!class_exists('NasWP_Helpers')) {
 			$protected_member->init();
 		}
 
-
+		public function sidebar()
+		{
+			require_once "class-naswp-sidebar.php";
+			$sidebar = new NasWP_Sidebar();
+			$sidebar->init();
+		}
 	}
 }
 
