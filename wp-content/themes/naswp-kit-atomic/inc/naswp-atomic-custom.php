@@ -23,15 +23,16 @@ function naswp_resource_hints($hints, $relation_type)
 				}
 			}
 		}
-		return $hints;
 	}
+	return $hints;
 }
 
 add_filter('wp_resource_hints', 'naswp_resource_hints', 10, 2);
 
 //typo demo - ukázka použitých komponent
-function naswp_typo_demo(){
-?>
-<p>demo</p>
-<?php
+function naswp_typo_demo()
+{
+	?>
+	<p>demo</p>
+	<?php
 }
