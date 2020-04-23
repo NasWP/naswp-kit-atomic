@@ -31,24 +31,10 @@ if (!class_exists('NasWP_Localization')) {
 
 		public function init()
 		{
-			add_action('locale', array($this, 'set_locale'));
 			add_action('widgets_init', array($this, 'register_sidebars'));
 			add_filter('sidebars_widgets', array($this, 'switch_sidebars'));
 			add_filter('wp_nav_menu_args', array($this, 'switch_menus'));
 		}
-
-		public function set_locale($locale)
-		{
-
-			foreach ($this->languages as $slug => $lang) {
-				if (naswp_is_lang($slug)) {
-					return $lang;
-				}
-			}
-
-			return $locale;
-		}
-
 
 		public function register_sidebars()
 		{
