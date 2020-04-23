@@ -28,7 +28,19 @@ Jednotlivé helpery se povolují a případně nastavují ve functions.php zavol
     $helpers->blocks_helper();
     
     //vyřešení anglické mutace bez dalších pluginů
-    $helpers->localization();
+    //seznam náhrad menu - měníme primární menu za menu s id 3
+    $menus = array(
+     'primary' => 4,
+    );
+    
+    //seznam náhrad sidebarů - vytvoří a zaregistruje 3 nové lokalizované sidebary dle původních a bude mezi nimi přepínat
+    $sidebars = array(
+       'footer-1' => 'Footer - Column 1',
+       'footer-2' => 'Footer - Column 2',
+       'footer-3' => 'Footer - Column 3',
+    );
+
+    $helpers->localization($menus, $sidebars);
     
     //zapnutí malých SEO doplňků
     $helpers->seo();
