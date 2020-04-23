@@ -27,10 +27,21 @@ Jednotlivé helpery se povolují a případně nastavují ve functions.php zavol
     //zapnutí ohraničení bloků v Gutenbergu pro lepší orientaci
     $helpers->blocks_helper();
     
-    //vyřešení anglické mutace bez dalších pluginů
-    //seznam náhrad menu - měníme primární menu za menu s id 3
+    //vyřešení jazykové mutace bez dalších pluginů
+    //definice jazyků
+    $languages = array(
+	    'en' => 'en_US',
+	    'de' => 'de_DE',
+    );
+    
+    //seznam náhrad menu - měníme primární menu za menu s id 4 pro ENG a za 5 pro DE
     $menus = array(
-     'primary' => 4,
+	    'en' => array(
+    	    'primary' => 4,
+	    	),
+	    'de' => array(
+    	    'primary' => 5,
+		    ),
     );
     
     //seznam náhrad sidebarů - vytvoří a zaregistruje 3 nové lokalizované sidebary dle původních a bude mezi nimi přepínat
