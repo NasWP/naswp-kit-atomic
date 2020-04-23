@@ -10,7 +10,7 @@
  * @author Vladimír Smitka, Lynt.cz
  *
  *
- * TODO: zatím je to beta, bude třeba nadefinovat volitelná pravidla pro přehazování a podporu dalších jazyků
+ * TODO: ošetřit, zda jsou jazyky správně nadefinované
  */
 if (!class_exists('NasWP_Localization')) {
 
@@ -19,14 +19,14 @@ if (!class_exists('NasWP_Localization')) {
 
 		public $menu_replaces;
 		public $sidebar_replaces;
-		public $sidebars;
+		public $languages;
 
 
-		public function __construct($menu_replaces_array, $sidebar_replaces_array)
+		public function __construct($languages_array, $menu_replaces_array, $sidebar_replaces_array)
 		{
+			$this->languages = $languages_array;
 			$this->menu_replaces = $menu_replaces_array;
 			$this->sidebar_replaces = $sidebar_replaces_array;
-			add_action('init', array($this, 'load_sidebars'));
 		}
 
 		public function init()
@@ -37,47 +37,41 @@ if (!class_exists('NasWP_Localization')) {
 			add_filter('wp_nav_menu_args', array($this, 'switch_menus'));
 		}
 
-		function load_sidebars()
-		{
-			global $wp_registered_sidebars;
-			foreach ($wp_registered_sidebars as $sidebar) {
-				$this->sidebars[$sidebar['id']] = $sidebar['name'];
-			}
-		}
-
-
 		public function set_locale($locale)
 		{
 
-			if (naswp_is_lang('en')) {
-				$locale = 'en_US';
+			foreach ($this->languages as $slug => $lang) {
+				if (naswp_is_lang($slug)) {
+					return $lang;
+				}
 			}
 
 			return $locale;
 		}
 
-		//TODO: prozatím statický koncept
+
 		public function register_sidebars()
 		{
-
-			foreach ($this->sidebar_replaces as $sidebar){
-				register_sidebar(array(
-					'name' => __($this->sidebars[$sidebar].' EN', 'naswp-kit-atomic'),
-					'id' => $sidebar.'-en'
-				));
+			foreach ($this->languages as $slug => $lang) {
+				foreach ($this->sidebar_replaces as $key => $value) {
+					register_sidebar(array(
+						'name' => __($value . ' ' . strtoupper($slug), 'naswp-kit-atomic'),
+						'id' => $key . '-' . $slug
+					));
+				}
 			}
 		}
 
-		//TODO: prozatím statický koncept
 		public function switch_sidebars($widgets)
 		{
+			foreach ($this->languages as $slug => $lang) {
+				foreach ($this->sidebar_replaces as $key => $value) {
+					$original = $key;
+					$new = $key . '-' . $slug;
 
-			foreach ($this->sidebar_replaces as $sidebar) {
-				$original = $sidebar;
-				$new = $sidebar . '-en';
-
-				if (naswp_is_lang('en') && isset($widgets[$original]) && isset($widgets[$new])) {
-					$widgets[$original] = $widgets[$new];
+					if (naswp_is_lang($slug) && isset($widgets[$original]) && isset($widgets[$new])) {
+						$widgets[$original] = $widgets[$new];
+					}
 				}
 			}
 			return $widgets;
@@ -85,9 +79,11 @@ if (!class_exists('NasWP_Localization')) {
 
 		public function switch_menus($args)
 		{
-			foreach ($this->menu_replaces as $key => $value) {
-				if (naswp_is_lang('en') && $args['theme_location'] === $key) {
-					$args['menu'] = $value;
+			foreach ($this->languages as $slug => $lang) {
+				foreach ($this->menu_replaces[$slug] as $key => $value) {
+					if (naswp_is_lang($slug) && $args['theme_location'] === $key) {
+						$args['menu'] = $value;
+					}
 				}
 			}
 			return $args;

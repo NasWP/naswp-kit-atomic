@@ -17,8 +17,18 @@ $helpers->dashboard_tips();
 
 $helpers->blocks_helper();
 
+$languages = array(
+	'en' => 'en_US',
+	'de' => 'de_DE',
+);
+
 $menus = array(
-    'primary' => 4,
+	'en' => array(
+    	'primary' => 4,
+		),
+	'de' => array(
+    	'primary' => 5,
+		),
 );
 
 $sidebars = array(
@@ -27,7 +37,9 @@ $sidebars = array(
     'footer-3' => 'Footer - Column 3',
 );
 
-$helpers->localization($menus, $sidebars);
+
+
+$helpers->localization($languages ,$menus, $sidebars);
 
 $helpers->seo();
 

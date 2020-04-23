@@ -54,10 +54,10 @@ if (!class_exists('NasWP_Helpers')) {
 			$mimes->init();
 		}
 
-		public function localization($menu_replaces_array, $sidebar_replaces_array)
+		public function localization($languages_array, $menu_replaces_array, $sidebar_replaces_array)
 		{
 			require_once "class-naswp-localization.php";
-			$localization = new NasWP_Localization($menu_replaces_array, $sidebar_replaces_array);
+			$localization = new NasWP_Localization($languages_array, $menu_replaces_array, $sidebar_replaces_array);
 			$localization->init();
 		}
 
