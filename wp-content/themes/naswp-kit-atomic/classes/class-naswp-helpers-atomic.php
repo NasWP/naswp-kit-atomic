@@ -91,7 +91,7 @@ if (!class_exists('NasWP_Helpers')) {
 
 		public function sidebar()
 		{
-			require_once "class-naswp-sidebar.php";
+			require_once "class-naswp-sidebar-atomic.php";
 			$sidebar = new NasWP_Sidebar();
 			$sidebar->init();
 		}
