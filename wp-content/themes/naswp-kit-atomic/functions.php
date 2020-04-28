@@ -37,4 +37,6 @@ $helpers->colors($settings->colors, true, $settings->gradients, true);
 $helpers->lightbox();
 
 $helpers->protected_member();
+
+$helpers->auto_async_js();
 */

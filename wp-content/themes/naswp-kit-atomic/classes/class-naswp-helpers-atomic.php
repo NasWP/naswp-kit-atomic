@@ -15,7 +15,8 @@ if (!class_exists('NasWP_Helpers')) {
 		public function colors($colors, $allow_custom_colors = true, $gradients = null, $allow_custom_gradients = true)
 		{
 			require_once "class-naswp-colors.php";
-			new NasWP_Colors($colors, $allow_custom_colors, $gradients, $allow_custom_gradients);
+			$colors_obj = new NasWP_Colors($colors, $allow_custom_colors, $gradients, $allow_custom_gradients);
+			$colors_obj->init();
 		}
 
 		public function seo()
@@ -95,5 +96,13 @@ if (!class_exists('NasWP_Helpers')) {
 			$sidebar = new NasWP_Sidebar();
 			$sidebar->init();
 		}
+
+		public function auto_async_js()
+		{
+			require_once "class-naswp-auto-async-js.php";
+			$async = new NasWP_AutoAsyncJS();
+			$async->init();
+		}
+
 	}
 }
