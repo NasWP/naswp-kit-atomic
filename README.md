@@ -21,73 +21,74 @@ Aktuálně kit umí rozšířit funkcionalitu následovně:
 
 Jednotlivé helpery se povolují a případně nastavují ve functions.php zavoláním příslušných funkcí:
 
-    //zapnutí tipů na WP nástěnce
-    $helpers->intro();
-    
-    //zapnutí ohraničení bloků v Gutenbergu pro lepší orientaci
-    $helpers->blocks_helper();
-    
-    //vyřešení jazykové mutace bez dalších pluginů
-    //definice jazyků
-    $languages = array(
-	    'en' => 'en_US',
-	    'de' => 'de_DE',
-    );
-    
-    //seznam náhrad menu - měníme primární menu za menu s id 4 pro ENG a za 5 pro DE
-    $menus = array(
-	    'en' => array(
-    	    'primary' => 4,
-	    	),
-	    'de' => array(
-    	    'primary' => 5,
-		    ),
-    );
-    
-    //seznam náhrad sidebarů - vytvoří a zaregistruje 3 nové lokalizované sidebary dle původních a bude mezi nimi přepínat
-    $sidebars = array(
-       'footer-1' => 'Footer - Column 1',
-       'footer-2' => 'Footer - Column 2',
-       'footer-3' => 'Footer - Column 3',
-    );
+```php
+//zapnutí tipů na WP nástěnce
+$helpers->intro();
 
-    $helpers->localization($menus, $sidebars);
-    
-    //zapnutí malých SEO doplňků
-    $helpers->seo();
-    
-    //vygenerování sitemapy
-    $helpers->sitemap();
-    
-    //vložení Google Analytics kódu
-    $helpers->ga('UA-0');
-    
-    //vložení GTM kódu
-    $helpers->gtm('GTM-0');
-    
-    //povolení uploadu vybraných typů souborů do galerie WP
-    $mimes_array = array('svg' => 'image/svg+xml');
-    
-    $helpers->mimes($mimes_array);
-    
-    //použití lightboxu na obrázky (je využit BaguetteBox)
-    $helpers->lightbox();
+//zapnutí ohraničení bloků v Gutenbergu pro lepší orientaci
+$helpers->blocks_helper();
 
-    //definování vlastní barevné palety pro Gutenberg
-    $colors = array(
-    	'Light' => '#EAF7FF',
-    	'Dark' => '#002140',
-    );
-    
-    $gradients = array(
-    	'Light' => 'linear-gradient(90deg, rgba(0,183,255,1) 0%, rgba(4,89,170,1) 100%)',
-    	'Dark' => 'linear-gradient(90deg, rgba(4,89,170,1) 0%, rgba(0,33,64,1) 100%)',
-    );
-    
-    $helpers->colors($colors, true, $gradients, true);
-    
-    //zapnutí jednoduché členské sekce - nahradí funkci příspěvků chráněných heslem
-    $helpers->protected_member();
+//vyřešení jazykové mutace bez dalších pluginů
+//definice jazyků
+$languages = array(
+    'en' => 'en_US',
+    'de' => 'de_DE',
+);
 
+//seznam náhrad menu - měníme primární menu za menu s id 4 pro ENG a za 5 pro DE
+$menus = array(
+    'en' => array(
+        'primary' => 4,
+        ),
+    'de' => array(
+        'primary' => 5,
+        ),
+);
+
+//seznam náhrad sidebarů - vytvoří a zaregistruje 3 nové lokalizované sidebary dle původních a bude mezi nimi přepínat
+$sidebars = array(
+    'footer-1' => 'Footer - Column 1',
+    'footer-2' => 'Footer - Column 2',
+    'footer-3' => 'Footer - Column 3',
+);
+
+$helpers->localization($menus, $sidebars);
+
+//zapnutí malých SEO doplňků
+$helpers->seo();
+
+//vygenerování sitemapy
+$helpers->sitemap();
+
+//vložení Google Analytics kódu
+$helpers->ga('UA-0');
+
+//vložení GTM kódu
+$helpers->gtm('GTM-0');
+
+//povolení uploadu vybraných typů souborů do galerie WP
+$mimes_array = array('svg' => 'image/svg+xml');
+
+$helpers->mimes($mimes_array);
+
+//použití lightboxu na obrázky (je využit BaguetteBox)
+$helpers->lightbox();
+
+//definování vlastní barevné palety pro Gutenberg
+$colors = array(
+    'Light' => '#EAF7FF',
+    'Dark' => '#002140',
+);
+
+$gradients = array(
+    'Light' => 'linear-gradient(90deg, rgba(0,183,255,1) 0%, rgba(4,89,170,1) 100%)',
+    'Dark' => 'linear-gradient(90deg, rgba(4,89,170,1) 0%, rgba(0,33,64,1) 100%)',
+);
+
+$helpers->colors($colors, true, $gradients, true);
+
+//zapnutí jednoduché členské sekce - nahradí funkci příspěvků chráněných heslem
+$helpers->protected_member();
+```
 
 Pokud nějakou funkci nechete využívat, nebo ji nahradit jiným komplexnějším pluginem, stačí zakomentovat/odstranit volání příslušného Helperu.
