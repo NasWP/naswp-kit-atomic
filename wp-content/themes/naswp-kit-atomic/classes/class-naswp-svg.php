@@ -5,7 +5,7 @@
  * Helper class for uploading svg - adds svg into allowed mime types, sanitizes it and adds a preview in Media gallery
  *
  * @category NasWP
- * @package  NasWP_SVGSupport
+ * @package  NasWP_SVG
  * @author   Karolína Vyskočilová <karolina@kybernaut.cz>
  */
 
@@ -14,7 +14,7 @@ require_once( __DIR__ . '/../vendor/autoload.php' );
 
 use enshrined\svgSanitize;
 
-if ( ! class_exists( 'NasWP_SVGSupport' ) ) {
+if ( ! class_exists( 'NasWP_SVG' ) ) {
 
 	/**
 	 * Template Class Doc Comment
@@ -22,11 +22,10 @@ if ( ! class_exists( 'NasWP_SVGSupport' ) ) {
 	 * Template Class
 	 *
 	 * @category NasWP
-	 * @package  NasWP_SVGSupport
+	 * @package  NasWP_SVG
 	 * @author   Karolína Vyskočilová <karolina@kybernaut.cz>
 	 */
-	class NasWP_SVGSupport {
-
+	class NasWP_SVG {
 
 		/**
 		 * The sanitizer

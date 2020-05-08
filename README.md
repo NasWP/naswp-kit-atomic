@@ -68,7 +68,7 @@ $helpers->ga('UA-0');
 $helpers->gtm('GTM-0');
 
 //povolení uploadu svg souborů a nastavení zobrazování náhledů v Mediálních souborech
-$helpers->svg_support();
+$helpers->svg();
 
 //povolení uploadu vybraných typů souborů do galerie WP
 $mimes_array = array('epub' => 'application/epub+zip');
