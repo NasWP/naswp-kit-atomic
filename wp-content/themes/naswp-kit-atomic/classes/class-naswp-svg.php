@@ -44,8 +44,54 @@ if ( ! class_exists( 'NasWP_SVG' ) ) {
 			$this->sanitizer->minify( true );
 
 			add_filter( 'upload_mimes', array( $this, 'svg_upload_mimes' ) );
-			add_filter( 'wp_check_filetype_and_ext', array( $this, 'svgs_disable_real_mime_check' ), 10, 4 );
 			add_filter( 'wp_prepare_attachment_for_js', array( $this, 'svgs_response_for_svg' ), 10, 3 );
+			add_filter( 'wp_check_filetype_and_ext', array( $this, 'fix_mime_type_svg' ), 75, 4 );
+			add_filter( 'wp_handle_upload_prefilter', array( $this, 'check_for_svg' ) );
+		}
+
+        /**
+         * Fixes the issue in WordPress 4.7.1 being unable to correctly identify SVGs
+         *
+         * @param array $data Data associated to the file.
+         * @param string $file Full path to the file.
+         * @param string $filename The name of the file (may differ from $file due to $file being in a tmp directory).
+         * @param array $mimes Array of mime types keyed by their file extension regex.
+         *
+         * @return array
+         */
+        public function fix_mime_type_svg( $data, $file, $filename, $mimes = null ) {
+            $ext = isset( $data['ext'] ) ? $data['ext'] : '';
+            if ( strlen( $ext ) < 1 ) {
+                $exploded = explode( '.', $filename );
+                $ext      = strtolower( end( $exploded ) );
+            }
+            if ( $ext === 'svg' ) {
+                $data['type'] = 'image/svg+xml';
+                $data['ext']  = 'svg';
+            } elseif ( $ext === 'svgz' ) {
+                $data['type'] = 'image/svg+xml';
+                $data['ext']  = 'svgz';
+            }
+
+            return $data;
+        }
+
+		/**
+		 * Check if the file is an SVG, if so handle appropriately
+		 *
+		 * @param string $file File.
+		 *
+		 * @return string
+		 */
+		public function check_for_svg( $file ) {
+
+			if ( $file['type'] === 'image/svg+xml' ) {
+				if ( ! $this->sanitize( $file['tmp_name'] ) ) {
+					$file['error'] = __( "Sorry, this file couldn't be sanitized so for security reasons wasn't uploaded",'naswp-kit-atomic' );
+				}
+			}
+
+			return $file;
 		}
 
 		/**
@@ -68,12 +114,6 @@ if ( ! class_exists( 'NasWP_SVG' ) ) {
 					return false;
 				}
 			}
-
-			/**
-			 * Load extra filters to allow devs to access the safe tags and attrs by themselves.
-			 */
-			$this->sanitizer->setAllowedTags( new safe_svg_tags() );
-			$this->sanitizer->setAllowedAttrs( new safe_svg_attributes() );
 
 			$clean = $this->sanitizer->sanitize( $dirty );
 
@@ -119,27 +159,6 @@ if ( ! class_exists( 'NasWP_SVG' ) ) {
 			$mimes['svg']  = 'image/svg+xml';
 			$mimes['svgz'] = 'image/svg+xml';
 			return $mimes;
-		}
-
-		/**
-		 * Filters the "real" file type of the given file.
-		 *
-		 * @param array  $data     File data array containing 'ext', 'type', and 'proper_filename' keys.
-		 * @param string $file     Full path to the file.
-		 * @param string $filename The name of the file (may differ from $file due to
-		 *                         $file being in a tmp directory).
-		 * @param array  $mimes    Key is the file extension with value as the mime type.
-		 *
-		 * @return array
-		 */
-		public function svgs_disable_real_mime_check( $data, $file, $filename, $mimes ) {
-			$wp_filetype = wp_check_filetype( $filename, $mimes );
-
-			$ext             = $wp_filetype['ext'];
-			$type            = $wp_filetype['type'];
-			$proper_filename = $data['proper_filename'];
-
-			return compact( 'ext', 'type', 'proper_filename' );
 		}
 
 		/**
