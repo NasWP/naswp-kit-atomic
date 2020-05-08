@@ -39,4 +39,7 @@ $helpers->lightbox();
 $helpers->protected_member();
 
 $helpers->auto_async_js();
+
+$helpers->svg_support();
+
 */
