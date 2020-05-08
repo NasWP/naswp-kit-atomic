@@ -113,7 +113,7 @@ if (!class_exists('NasWP_Helpers')) {
 
 		public function svg_support()
 		{
-			require_once "class-naswp-svg-support.php";
+			require_once "class-naswp-svgsupport.php";
 			$filenames = new NasWP_SVGSupport();
 			$filenames->init();
 		}

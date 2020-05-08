@@ -1,20 +1,32 @@
 <?php
-
-// Load composer
-require_once(__DIR__ . '/../vendor/autoload.php');
-
-use enshrined\svgSanitize;
-
 /**
  * Pomocník pro nahrávání svg - přidá svg do poloných typů ouborů, sanitizuje a opraví zobrazování svg v Médiích
  *
- * @author Karolína Vyskočilová, kybernaut.cz
+ * Helper class for uploading svg - adds svg into allowed mime types, sanitizes it and adds a preview in Media gallery
  *
+ * @category NasWP
+ * @package  NasWP_SVGSupport
+ * @author   Karolína Vyskočilová <karolina@kybernaut.cz>
  */
-if (!class_exists('NasWP_SVGSupport')) {
 
-	class NasWP_SVGSupport
-	{
+// Load Composer dependencies.
+require_once( __DIR__ . '/../vendor/autoload.php' );
+
+use enshrined\svgSanitize;
+
+if ( ! class_exists( 'NasWP_SVGSupport' ) ) {
+
+	/**
+	 * Template Class Doc Comment
+	 *
+	 * Template Class
+	 *
+	 * @category NasWP
+	 * @package  NasWP_SVGSupport
+	 * @author   Karolína Vyskočilová <karolina@kybernaut.cz>
+	 */
+	class NasWP_SVGSupport {
+
 
 		/**
 		 * The sanitizer
@@ -23,32 +35,37 @@ if (!class_exists('NasWP_SVGSupport')) {
 		 */
 		protected $sanitizer;
 
-		public function init()
-		{
+		/**
+		 * Hook into WordPress
+		 *
+		 * @return void
+		 */
+		public function init() {
 			$this->sanitizer = new svgSanitize\Sanitizer();
 			$this->sanitizer->minify( true );
 
-			add_filter( 'upload_mimes', array( $this, 'svg_upload_mimes') );
-			add_filter( 'wp_check_filetype_and_ext', array( $this, 'svgs_disable_real_mime_check'), 10, 4 );
-			add_filter( 'wp_prepare_attachment_for_js', array( $this, 'svgs_response_for_svg'), 10, 3 );
+			add_filter( 'upload_mimes', array( $this, 'svg_upload_mimes' ) );
+			add_filter( 'wp_check_filetype_and_ext', array( $this, 'svgs_disable_real_mime_check' ), 10, 4 );
+			add_filter( 'wp_prepare_attachment_for_js', array( $this, 'svgs_response_for_svg' ), 10, 3 );
 		}
 
 		/**
 		 * Sanitize the SVG
 		 *
-		 * @param $file
+		 * @param string $file SVG file.
 		 *
 		 * @return bool|int
 		 */
 		protected function sanitize( $file ) {
-			$dirty = file_get_contents( $file );
+			$dirty     = file_get_contents( $file );
+			$is_zipped = $this->is_gzipped( $dirty );
 
-			// Is the SVG gzipped? If so we try and decode the string
-			if ( $is_zipped = $this->is_gzipped( $dirty ) ) {
+			// Is the SVG gzipped? If so we try and decode the string.
+			if ( $is_zipped ) {
 				$dirty = gzdecode( $dirty );
 
-				// If decoding fails, bail as we're not secure
-				if ( $dirty === false ) {
+				// If decoding fails, bail as we're not secure.
+				if ( false === $dirty ) {
 					return false;
 				}
 			}
@@ -61,11 +78,11 @@ if (!class_exists('NasWP_SVGSupport')) {
 
 			$clean = $this->sanitizer->sanitize( $dirty );
 
-			if ( $clean === false ) {
+			if ( false === $clean ) {
 				return false;
 			}
 
-			// If we were gzipped, we need to re-zip
+			// If we were gzipped, we need to re-zip.
 			if ( $is_zipped ) {
 				$clean = gzencode( $clean );
 			}
@@ -80,7 +97,7 @@ if (!class_exists('NasWP_SVGSupport')) {
 		 *
 		 * @see http://www.gzip.org/zlib/rfc-gzip.html#member-format
 		 *
-		 * @param $contents
+		 * @param string $contents Contents of SVG file.
 		 *
 		 * @return bool
 		 */
@@ -95,9 +112,7 @@ if (!class_exists('NasWP_SVGSupport')) {
 		/**
 		 * Filters list of allowed mime types and file extensions.
 		 *
-		 * @param array $mimes Mime types keyed by the file extension regex corresponding to
-		 *                     those types. 'swf' and 'exe' removed from full list. 'htm|html' also
-		 *                     removed depending on '$user' capabilities.
+		 * @param array $mimes Mime types keyed by the file extension regex corresponding to those types. 'swf' and 'exe' removed from full list. 'htm|html' also removed depending on '$user' capabilities.
 		 *
 		 * @return array $mimes
 		 */
@@ -110,8 +125,7 @@ if (!class_exists('NasWP_SVGSupport')) {
 		/**
 		 * Filters the "real" file type of the given file.
 		 *
-		 * @param array  $data     File data array containing 'ext', 'type', and
-		 *                         'proper_filename' keys.
+		 * @param array  $data     File data array containing 'ext', 'type', and 'proper_filename' keys.
 		 * @param string $file     Full path to the file.
 		 * @param string $filename The name of the file (may differ from $file due to
 		 *                         $file being in a tmp directory).
