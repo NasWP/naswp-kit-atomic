@@ -24,13 +24,15 @@ if (!class_exists('NasWP_Sitemap')) {
 
 		public function sitemap()
 		{
-			$postsForSitemap = get_posts(array(
+			$args = apply_filters( 'naswp_sitemap_get_posts_args', array(
 				'numberposts' => -1,
 				'orderby' => 'modified',
 				'post_type' => array('post', 'page'),
+				'post_status' => 'publish',
 				'has_password' => FALSE,
 				'order' => 'DESC'
-			));
+			) );
+			$postsForSitemap = get_posts($args);
 
 			$sitemap = '<' . '?xml version="1.0" encoding="UTF-8"?' . '>';
 			$sitemap .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
