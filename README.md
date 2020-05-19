@@ -57,8 +57,11 @@ $helpers->localization($menus, $sidebars);
 //zapnutí malých SEO doplňků
 $helpers->seo();
 
-//vygenerování sitemapy
+//vygenerování sitemapy pro "post" a "page"
 $helpers->sitemap();
+
+//vygenerování sitemapy - s vlastními typy CPT
+$helpers->sitemap(['post','page','product']);
 
 //vložení Google Analytics kódu
 $helpers->ga('UA-0');

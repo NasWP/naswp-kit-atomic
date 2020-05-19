@@ -13,26 +13,31 @@ if (!class_exists('NasWP_Sitemap')) {
 	class NasWP_Sitemap
 	{
 
+		public $cpts = [];
+
+		public function __construct( $cpts )
+		{
+			$this->cpts = $cpts;
+		}
+
 		public function init()
 		{
-
-			add_action("publish_post", array($this, "sitemap"));
-			add_action("publish_page", array($this, "sitemap"));
+			foreach ( $this->cpts as $cpt ) {
+				add_action("publish_" . $cpt , array($this, "sitemap"));
+			}
 			add_filter('robots_txt', array($this, 'robotstxt'), 20, 2);
-
 		}
 
 		public function sitemap()
 		{
-			$args = apply_filters( 'naswp_sitemap_get_posts_args', array(
+			$postsForSitemap = get_posts(array(
 				'numberposts' => -1,
 				'orderby' => 'modified',
 				'post_type' => array('post', 'page'),
 				'post_status' => 'publish',
 				'has_password' => FALSE,
 				'order' => 'DESC'
-			) );
-			$postsForSitemap = get_posts($args);
+			));
 
 			$sitemap = '<' . '?xml version="1.0" encoding="UTF-8"?' . '>';
 			$sitemap .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';

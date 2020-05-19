@@ -26,10 +26,10 @@ if (!class_exists('NasWP_Helpers')) {
 			$seo->init();
 		}
 
-		public function sitemap()
+		public function sitemap( $cpts = ['post', 'page'] )
 		{
 			require_once "class-naswp-sitemap.php";
-			$sitemap = new NasWP_Sitemap();
+			$sitemap = new NasWP_Sitemap($cpts);
 			$sitemap->init();
 
 		}
