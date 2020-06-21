@@ -13,13 +13,19 @@ if (!class_exists('NasWP_Sitemap')) {
 	class NasWP_Sitemap
 	{
 
+		public $cpts = [];
+
+		public function __construct( $cpts )
+		{
+			$this->cpts = $cpts;
+		}
+
 		public function init()
 		{
-
-			add_action("publish_post", array($this, "sitemap"));
-			add_action("publish_page", array($this, "sitemap"));
+			foreach ( $this->cpts as $cpt ) {
+				add_action("publish_" . $cpt , array($this, "sitemap"));
+			}
 			add_filter('robots_txt', array($this, 'robotstxt'), 20, 2);
-
 		}
 
 		public function sitemap()
@@ -28,6 +34,7 @@ if (!class_exists('NasWP_Sitemap')) {
 				'numberposts' => -1,
 				'orderby' => 'modified',
 				'post_type' => array('post', 'page'),
+				'post_status' => 'publish',
 				'has_password' => FALSE,
 				'order' => 'DESC'
 			));
