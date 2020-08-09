@@ -33,7 +33,7 @@ if (!class_exists('NasWP_Sitemap')) {
 			$postsForSitemap = get_posts(array(
 				'numberposts' => -1,
 				'orderby' => 'modified',
-				'post_type' => array('post', 'page'),
+				'post_type' => $this->cpts,
 				'post_status' => 'publish',
 				'has_password' => FALSE,
 				'order' => 'DESC'
