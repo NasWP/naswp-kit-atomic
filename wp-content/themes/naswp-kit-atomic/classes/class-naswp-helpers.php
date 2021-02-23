@@ -104,11 +104,17 @@ if (!class_exists('NasWP_Helpers')) {
 			$async->init();
 		}
 
-
 		public function file_names()
 		{
 			require_once "class-naswp-file-names.php";
 			$filenames = new NasWP_FileNames();
+			$filenames->init();
+		}
+
+		public function svg()
+		{
+			require_once "class-naswp-svg.php";
+			$filenames = new NasWP_SVG();
 			$filenames->init();
 		}
 

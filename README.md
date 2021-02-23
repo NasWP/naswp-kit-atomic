@@ -11,6 +11,7 @@ Aktuálně kit umí rozšířit funkcionalitu následovně:
 -   jednoduše nadefinovat vlastní palety barev a gradientů do Gutenbergu
 -   zobrazit tipy na WP nástěnce a zkraty pro instalaci doporučených pluginů
 -   jednoduše na web dostat GA nebo GTM
+-   povolit nahrávání svg souborů, sanitizovat jejich obsah a zobrazovat náhled v Mediálních souborech
 -   jednoduše nadefinovat povolené formáty souborů pro upload
 -   nadefinovat si vlastní meta description jako post meta v metaboxu gutenbergu + nastavit og:image když je nastaven náhledový obrázek
 -   vygenerovat sitemapu
@@ -69,8 +70,11 @@ $helpers->ga('UA-0');
 //vložení GTM kódu
 $helpers->gtm('GTM-0');
 
+//povolení uploadu svg souborů a nastavení zobrazování náhledů v Mediálních souborech
+$helpers->svg();
+
 //povolení uploadu vybraných typů souborů do galerie WP
-$mimes_array = array('svg' => 'image/svg+xml');
+$mimes_array = array('epub' => 'application/epub+zip');
 
 $helpers->mimes($mimes_array);
 

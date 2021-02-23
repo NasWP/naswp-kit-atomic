@@ -1,1 +1,4 @@
-vendor
+vendor/*
+!vendor/enshrined
+!vendor/composer
+!vendor/autoload.php
